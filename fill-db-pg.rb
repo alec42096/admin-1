@@ -3,7 +3,7 @@
 require "rubygems"
 require "pg"
 
-DB = PG::Connection.open(:dbname => "jd-test-db")
+DB = PG::Connection.open(:dbname => "jd-test-db", :user => "jd")
 #DB.connect(host="46.51.161.221", user='root', port="3306")
 
 #DB.query("CREATE TABLE test.testtable(title VARCHAR(15), givenname VARCHAR(25), surname VARCHAR(25), dateofbirth DATE() );")
