@@ -17,7 +17,7 @@ source ../user-details.sh
 # Make sure the URL variable is set. This is ready for multiple
 # endpoints for the API
 if [ -z "$URL" ]; then
-  URL="https://my.rightscale.com"
+  URL="https://us-3.rightscale.com"
 fi
 
 # This command makes the actual call to login to the API and
