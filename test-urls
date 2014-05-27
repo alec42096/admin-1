@@ -5,4 +5,4 @@ $(HOST)/index.php
 $(HOST)/delay.php?time=3
 $(HOST)/looong_cache.php
 $(HOST)/headers.php
-$(HOST)/jdade_test_serve_staus.php
+$(HOST)/jdade_test_serve_status.php
