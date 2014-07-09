@@ -17,6 +17,9 @@ These scripts all assume the presence in your home directory of a .fastly/api-cr
 export FASTLY_API_KEY="somekey"
 export FASTLY_SERVICE_ID="some_service_id"
 ```
+This ensures that all calls use the API KEY rather than a username / password & cookie authentication scheme.
+
+Once this is created you can run any script from a POSIX machine (Linux / Mac OS X / *BSD) by invoking bash followed by the name of the script, or by prepending the name of the script with './'
 
 ## Resources
 [Fastly API Docs](http://docs.fastly.com/api)
