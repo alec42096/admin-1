@@ -6,3 +6,7 @@ user-details.sh
 Rightscale API/api1.0/mySavedCookies
 Rightscale API/user-details.sh
 *mySavedCookies*
+
+*.sublime-workspace
+
+*.sublime-project
