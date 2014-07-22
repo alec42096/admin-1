@@ -8,5 +8,6 @@ Rightscale API/user-details.sh
 *mySavedCookies*
 
 *.sublime-workspace
-
 *.sublime-project
+
+*.swp
