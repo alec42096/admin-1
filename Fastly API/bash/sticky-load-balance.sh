@@ -5,7 +5,7 @@
 # This script contains examples of using the Fastly API to create, list, update, delete backends
 # They presume some familiarity with Fastly and APIs in general and should be used as examples only.
 #
-# Additional details on using this script can be found at http://docs.fastly.com.
+# Additional details on using this script can be found at http://docs.fastly.com/api.
 #
 
 if [ "$FASTLY_API_DEBUG" == "true" ]; then
@@ -14,6 +14,8 @@ if [ "$FASTLY_API_DEBUG" == "true" ]; then
 fi
 
 # Load the configuration file that contains the api key and service id.
+# an example configuration file can be seen at 
+# https://github.com/jondade/admin/blob/master/Fastly%20API/bash/api-creds-example.sh
 source ~/.fastly/api-creds.sh
 
 # Define a function to display the output nicely.
