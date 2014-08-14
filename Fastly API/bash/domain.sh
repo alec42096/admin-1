@@ -2,7 +2,7 @@
 #
 # domain.sh
 # ==========
-# This script contains examples of using the Fastly API to create, list, update, delete backends
+# This script contains examples of using the Fastly API to create, list, update, delete domains.
 # They presume some familiarity with Fastly and APIs in general and should be used as examples only.
 #
 # Additional details on using this script can be found at http://docs.fastly.com.

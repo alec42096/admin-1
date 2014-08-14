@@ -11,3 +11,5 @@ Rightscale API/user-details.sh
 *.sublime-project
 
 *.swp
+
+*cookie*

@@ -2,7 +2,9 @@
 #
 # sticky-load-balance.sh
 # ==========
-# This script contains examples of using the Fastly API to create, list, update, delete backends
+# This script contains an example script to add and configure load balancing via the Fastly API. 
+# It is not designed to be a robust framework for implementing load balancing, but as a starting point
+# for your own scripts for deploying.
 # They presume some familiarity with Fastly and APIs in general and should be used as examples only.
 #
 # Additional details on using this script can be found at http://docs.fastly.com/api.
