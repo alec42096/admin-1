@@ -62,7 +62,14 @@ curl -X PUT -H "$FASTLY_API_KEY" "$FASTLY_API_URL/version/1/clone"
 pretty-out "Validate the new version"
 curl -X GET -H "$FASTLY_API_KEY" "$FASTLY_API_URL/version/18/validate"
 
-# Now lets activate it
+# Now lets activate it.
 pretty-out "Activating the new version"
 curl -X PUT -H "$FASTLY_API_KEY" "$FASTLY_API_URL/version/18/activate"
 
+# And now lets deactivate it.
+pretty-out "Deactivating the new version"
+curl -X PUT -H "$FASTLY_API_KEY" "$FASTLY_API_URL/version/18/deactivate"
+
+# Lock a version so that it can't be changed any more.
+pretty-out "Locking a version"
+curl -X PUT -H "$FASTLY_API_KEY" "$FASTLY_API_URL/version/18/lock"
