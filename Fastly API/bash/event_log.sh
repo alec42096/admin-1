@@ -2,7 +2,7 @@
 #
 # Event_Log.sh
 # =================
-# This script contains examples of using the Fastly API to pull various parts of the API documentation.
+# This script contains examples of using the Fastly API to pull event logs with a couple of examples of criteria.
 # They presume some familiarity with Fastly and APIs in general and should be used as examples only.
 #
 # Additional details on using this script can be found at http://docs.fastly.com.
