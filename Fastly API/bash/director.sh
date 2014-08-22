@@ -46,6 +46,17 @@ curl -X POST -H "$FASTLY_API_KEY" \
 	"retries":3
 }'
 
+# Lets update that one now for a lower quorum value
+pretty-out "Dropping the quorum to 65% healthy servers."
+curl -X PUT -H "$FASTLY_API_KEY" \
+	-H "Content-type: application/json" \
+"$FASTLY_API_URL/director/test-director" -d \
+'{"quorum":65}'
+
+# And lets display that once more
+pretty-out "Showing that update"
+curl -X GET -H "$FASTLY_API_KEY" "$FASTLY_API_URL/director/test-director"
+
 # Cleanup time. Lets remove that director.
 pretty-out "Deleting the test director"
 curl -X DELETE -H "$FASTLY_API_KEY" "$FASTLY_API_URL/director/test-director"
