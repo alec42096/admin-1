@@ -1,9 +1,4 @@
 sub vcl_recv {
-#FASTLY recv
-
-    if (req.request != "HEAD" && req.request != "GET" && req.request != "FASTLYPURGE") {
-      return(pass);
-    }
 
   # Use anonymous, cached pages if all backends are down.
   if (!req.backend.healthy) {
@@ -31,7 +26,7 @@ sub vcl_recv {
     unset req.http.Cookie;
   }
 
-  # Remove all cookies that Drupal doesn't need to know about. We explicitly
+  # Remove all cookies that Drupal doesnt need to know about. We explicitly
   # list the ones that Drupal does need, the SESS and NO_CACHE. If, after
   # running this code we find that either of these two cookies remains, we
   # will pass as the page cannot be cached.
@@ -62,12 +57,37 @@ sub vcl_recv {
       return (pass);
     }
   }
- 
-  # If all that fails or drops out lets send a cached version
+
+#FASTLY recv
+
+  if (req.request != "HEAD" && req.request != "GET" && req.request != "FASTLYPURGE") {
+    return(pass);
+  }
+
   return(lookup);
+
 }
 
 sub vcl_fetch {
+
+
+  # We need this to cache 404s, 301s, 500s. Otherwise, depending on backend but
+  # definitely in Drupals case these responses are not cacheable by default.
+  if (beresp.status == 404 || beresp.status == 301 || beresp.status == 500) {
+    set beresp.ttl = 10m;
+  }
+ 
+  # Dont allow static files to set cookies.
+  # (?i) denotes case insensitive in PCRE (perl compatible regular expressions).
+  # This list of extensions appears twice, once here and again in vcl_recv so
+  # make sure you edit both and keep them equal.
+  if (req.url ~ "(?i)\.(pdf|asc|dat|txt|doc|xls|ppt|tgz|csv|png|gif|jpeg|jpg|ico|swf|css|js)(\?.*)?$") {
+    unset beresp.http.set-cookie;
+  }
+ 
+  # Allow items to be stale if needed.
+  set beresp.grace = 6h;
+
 #FASTLY fetch
 
   if ((beresp.status == 500 || beresp.status == 503) && req.restarts < 1 && (req.request == "GET" || req.request == "HEAD")) {
@@ -101,23 +121,6 @@ sub vcl_fetch {
     # apply the default ttl
     set beresp.ttl = 3600s;
   }
-
-  # We need this to cache 404s, 301s, 500s. Otherwise, depending on backend but
-  # definitely in Drupal's case these responses are not cacheable by default.
-  if (beresp.status == 404 || beresp.status == 301 || beresp.status == 500) {
-    set beresp.ttl = 10m;
-  }
- 
-  # Don't allow static files to set cookies.
-  # (?i) denotes case insensitive in PCRE (perl compatible regular expressions).
-  # This list of extensions appears twice, once here and again in vcl_recv so
-  # make sure you edit both and keep them equal.
-  if (req.url ~ "(?i)\.(pdf|asc|dat|txt|doc|xls|ppt|tgz|csv|png|gif|jpeg|jpg|ico|swf|css|js)(\?.*)?$") {
-    unset beresp.http.set-cookie;
-  }
- 
-  # Allow items to be stale if needed.
-  set beresp.grace = 6h;
 
   return(deliver);
 }
