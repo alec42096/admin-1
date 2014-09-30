@@ -3,7 +3,7 @@ sub vcl_recv {
     if (!req.http.Cookie ~ "username=.*" || ! req.http.Auth ~ "(this|that)") {
       error 666 "Not allowed to purge";
     } else {
-      log {"syslog 5Z5XgjeAodFNnNixo8LskA jdade.me.uk :: "} now {" "} req.http.Fastly-Client-IP {" "} req.request {" "} time.elapsed.msec {" "} server.port {" "} req.proto {" "} req.http.User-agent {" "} req.http.Cookie {" "} req.http.Referer;
+      log {"syslog 5Z5........ixo8LskA test.my.com :: "} now {" "} req.http.Fastly-Client-IP {" "} req.request {" "} time.elapsed.msec {" "} server.port {" "} req.proto {" "} req.http.User-agent {" "} req.http.Cookie {" "} req.http.Referer;
       return(lookup);
     }
   }
