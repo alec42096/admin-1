@@ -1,5 +1,5 @@
 acl office { 
-  "90.152.124.18"/32;
+  "999.888.777.666"/32;
 }
 
 sub vcl_recv {
@@ -9,6 +9,11 @@ sub vcl_recv {
 
 #FASTLY recv
 
+  if (req.request != "HEAD" && req.request != "GET" && req.request != "FASTLYPURGE") {
+    return(pass);
+  }
+
+  return(lookup);
 }
 
 sub vcl_fetch {
