@@ -1,24 +1,19 @@
-acl office { 
-  "999.888.777.666"/24;
-  "987.654.321.098";
-}
-
 sub vcl_recv {
-  if( ! client.ip ~ office &&  ! req.http.Fastly-FF ){
-    error 403 "Forbidden Gibber";
+
+  if ( req.url ~ "^/locale"){
+    error 801;
   }
 
 #FASTLY recv
 
-  if (req.request != "HEAD" && req.request != "GET" && req.request != "FASTLYPURGE") {
-    return(pass);
-  }
+    if (req.request != "HEAD" && req.request != "GET" && req.request != "FASTLYPURGE") {
+      return(pass);
+    }
 
-  return(lookup);
+    return(lookup);
 }
 
 sub vcl_fetch {
-
 #FASTLY fetch
 
   if ((beresp.status == 500 || beresp.status == 503) && req.restarts < 1 && (req.request == "GET" || req.request == "HEAD")) {
@@ -76,6 +71,12 @@ sub vcl_deliver {
 }
 
 sub vcl_error {
+  if (obj.status == 801) {
+    set obj.status = 200;
+    set obj.http.Content-Type = "application/json";
+    synthetic {"{"}req.http.health{"}"};
+    return(deliver);
+  }
 
 #FASTLY error
 }

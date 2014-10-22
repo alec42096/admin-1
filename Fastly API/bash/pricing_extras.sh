@@ -31,5 +31,7 @@ FASTLY_API_URL="$FASTLY_API_URL/version/$VERSION"
 # version via the API or by accessing https://app.fastly.com/
 
 # get the customer id
-ID=`curl -X GET "$FASTLY_API_KEY" "https://api.fastly.com/current_customer" | sed -e 's/.*\"id\":\"\([A-Za-z0-9][A-Za-z0-9]*\).*/\1/'`
+ID=`curl -X GET -H "$FASTLY_API_KEY" "https://api.fastly.com/current_customer" | sed -e 's/.*\"id\":\"\([A-Za-z0-9][A-Za-z0-9]*\).*/\1/'`
 echo "ID: $ID"
+
+curl -X GET -sv -H "$FASTLY_API_KEY" "https://api.fastly.com/customer/$ID/pricing_extra"
