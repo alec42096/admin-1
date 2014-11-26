@@ -1,8 +1,8 @@
 #! /bin/bash
 #
-# Healthcheck.sh
+# Request_settings.sh
 # =================
-# This script contains examples of using the Fastly API to create, list, update, delete healthchecks.
+# This script contains examples of using the Fastly API to create, list, update, delete request settings.
 # They presume some familiarity with Fastly and APIs in general and should be used as examples only.
 #
 # Additional details on using this script can be found at http://docs.fastly.com.
