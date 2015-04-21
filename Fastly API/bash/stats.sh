@@ -1,6 +1,6 @@
 #! /bin/bash
 #
-# Settings.sh
+# Stats.sh
 # =================
 # This script contains examples of using the Fastly API to manipulate some default settings.
 # They presume some familiarity with Fastly and APIs in general and should be used as examples only.
@@ -24,25 +24,17 @@ pretty-out() {
 
 # Set up a variable to save re-typing the whole lot for each API call.
 FASTLY_API_URL="https://api.fastly.com/service/$FASTLY_SERVICE_ID"
-VERSION="32"
-FASTLY_API_URL="$FASTLY_API_URL/version/$VERSION"
 
 # The rest of the commands assume you have either got the correct configuration
 # version via the API or by accessing https://app.fastly.com/
 
-# First lets get the current values
-pretty-out "Current service settings: "
-curl -X GET -H "$FASTLY_API_KEY" "$FASTLY_API_URL/settings"
+START_TIME=$(date +%s)
+END_TIME=$(($START_TIME-86400))
 
-# Now let's update those values
-pretty-out "Setting defaults:"
-curl -X PUT -sv -H "$FASTLY_API_KEY" \
-  -H "Content-type: application/json" \
-  "$FASTLY_API_URL/settings" -d \
-'{
-  "general.default_host":"www.test.com"
-}'
+# Lets get the stats for the last day
+pretty-out "Last day's stats: "
+curl -X GET -H "$FASTLY_API_KEY" "$FASTLY_API_URL/stats/summary?start_time=$START_TIME&end_time=$END_TIME"
 
-# Now let's see those changes
-pretty-out "New values:"
-curl -X GET -H "$FASTLY_API_KEY" "$FASTLY_API_URL/settings"
+MONTH=""
+
+pretty-out ""
