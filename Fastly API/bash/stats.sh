@@ -35,6 +35,8 @@ END_TIME=$(($START_TIME-86400))
 pretty-out "Last day's stats: "
 curl -X GET -H "$FASTLY_API_KEY" "$FASTLY_API_URL/stats/summary?start_time=$START_TIME&end_time=$END_TIME"
 
-MONTH=""
+MONTH="1"
+YEAR="2015"
 
-pretty-out ""
+pretty-out "Now lets try for January 2015"
+curl -X GET -H "$FASTLY_API_KEY" "$FASTLY_API_URL/stats/summary?year=$YEAR&month=$MONTH"
