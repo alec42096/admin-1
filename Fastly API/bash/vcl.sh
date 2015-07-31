@@ -72,4 +72,3 @@ curl -X GET -H "$FASTLY_API_KEY" "$FASTLY_API_URL/generated_vcl/content"
 # And lets clean it up.
 pretty-out "Cleaning it up: "
 curl -X DELETE -H "$FASTLY_API_KEY" "$FASTLY_API_URL/vcl/tested"
-
