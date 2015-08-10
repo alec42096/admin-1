@@ -2,7 +2,7 @@
 #
 # Pricing_Extras.sh
 # =================
-# This script contains examples of using the Fastly API to create, list, update, delete directors.
+# This script contains examples of using the Fastly API to list any pricing extras associated with an account.
 # They presume some familiarity with Fastly and APIs in general and should be used as examples only.
 #
 # Additional details on using this script can be found at http://docs.fastly.com.
