@@ -13,23 +13,40 @@ def check_cert(cert_name, name)
   cert = fetch_cert(cert_name)
   domains = san_domains(cert)
   if domains.include?(name)
-    p "#{name} found on #{cert_name}"
+    puts "#{name} found on #{cert_name}"
+  else
+    # check wildcards
+    name_parts = name.split(/\./).reverse
+    domains.each do |domain|
+      domain_parts = domain.split(/\./).reverse
+      next if domain_parts.last != "*"
+      next if name_parts.length != domain_parts.length
+        puts name_parts.slice(0, -1) 
+        puts domain_parts.slice(0, -1)
+         # puts "Wildcard match found: #{domain_parts.reverse.join('.')} for #{name}"
+        #end
+    end
   end
-  #binding.pry
+  # binding.pry
 end
 
 def build_url(host, base=BASEURL)
   "#{host}.#{base}"
 end
 
-def fetch_cert(name) 
-  tcp_client = TCPSocket.new name, 443
-  ssl_client = OpenSSL::SSL::SSLSocket.new tcp_client
-  ssl_client.connect
-  cert = OpenSSL::X509::Certificate.new(ssl_client.peer_cert)
-  ssl_client.sysclose
-  tcp_client.close
-  return cert
+def fetch_cert(name)
+  begin
+    tcp_client = TCPSocket.new name, 443
+    ssl_client = OpenSSL::SSL::SSLSocket.new tcp_client
+    ssl_client.connect
+    cert = OpenSSL::X509::Certificate.new(ssl_client.peer_cert)
+    return cert
+  rescue SocketError
+    print "Error retrieving certificate #{name}"
+  ensure
+    ssl_client.sysclose
+    tcp_client.close
+  end
 end
 
 def san_domains(cert)
@@ -48,8 +65,8 @@ end
 name = ARGV[0]
 threads = Hash.new()
 
-("a".."j").each do |cert|
-  puts "Cert: #{cert}"
+("a".."l").each do |cert|
+  #puts "Cert: #{cert}"
     threads[cert] = Thread.new {
     url = build_url(cert)
     Thread.current[:res] = check_cert(url, name)
