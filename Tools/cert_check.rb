@@ -2,8 +2,8 @@
 #
 # Can be used as a library for various SSL functions
 
-require "openssl" or raise "Could not import TLS library"
-require "socket" or raise "Could not load sockets library"
+require 'openssl' or raise "Could not import TLS library"
+require 'socket' or raise "Could not load sockets library"
 require 'pry' or raise "Could not load pry debugging library"
 require 'getoptlong' or raise "Could not load shell option parser"
 
@@ -21,10 +21,9 @@ def check_cert(cert_name, name)
       domain_parts = domain.split(/\./).reverse
       next if domain_parts.last != "*"
       next if name_parts.length != domain_parts.length
-        puts name_parts.slice(0, -1) 
-        puts domain_parts.slice(0, -1)
-         # puts "Wildcard match found: #{domain_parts.reverse.join('.')} for #{name}"
-        #end
+        if name_parts.slice(0..-2) == domain_parts.slice(0..-2)
+          puts "Wildcard match found: #{domain_parts.reverse.join('.')} for #{name} on #{cert_name}"
+        end
     end
   end
   # binding.pry
@@ -77,4 +76,3 @@ threads.keys.each do |cert|
   t = threads[cert].join
   #puts t[:res]
 end
- 
