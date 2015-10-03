@@ -31,13 +31,13 @@ FASTLY_API_URL="$FASTLY_API_URL/version/$VERSION"
 # version via the API or by accessing https://app.fastly.com/
 
 # Get the default 20 most recent events
-pretty-out "Last 20 events"
-curl -X GET -H "$FASTLY_API_KEY" "https://api.fastly.com/event_log/$FASTLY_SERVICE_ID"
-
-# Get a set number of events
-pretty-out "Getting the last 100 events"
-curl -X GET -H "$FASTLY_API_KEY" "https://api.fastly.com/event_log/$FASTLY_SERVICE_ID?limit=100"
-
+# pretty-out "Last 20 events"
+# curl -X GET -H "$FASTLY_API_KEY" "https://api.fastly.com/event_log/$FASTLY_SERVICE_ID"
+# 
+# # Get a set number of events
+# pretty-out "Getting the last 100 events"
+# curl -X GET -H "$FASTLY_API_KEY" "https://api.fastly.com/event_log/$FASTLY_SERVICE_ID?limit=100"
+# 
 # Getting all events since....
 pretty-out "Getting events since a particular unix timestamp"
-curl -X GET -H "$FASTLY_API_KEY" "https://api.fastly.com/event_log/$FASTLY_SERVICE_ID?after=1408444752634"
+curl -X GET -H "$FASTLY_API_KEY" "https://api.fastly.com/event_log/$FASTLY_SERVICE_ID?after=1409&limit=100"

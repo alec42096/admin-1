@@ -24,7 +24,7 @@ pretty-out() {
 
 # Set up a variable to save re-typing the whole lot for each API call.
 FASTLY_API_URL="https://api.fastly.com/service/$FASTLY_SERVICE_ID"
-VERSION="2"
+VERSION="4"
 FASTLY_API_URL="$FASTLY_API_URL/version/$VERSION"
 
 # The rest of the commands assume you have either got the correct configuration
