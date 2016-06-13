@@ -23,6 +23,6 @@ while true do
         results[:fives] += 1
     end
     results[:hits] += 1 if /HIT/.match(r.headers['X-Cache'])
-    log.info "2xx = "+results[:twos].to_s+", 3xx = "+results[:threes].to_s+", 4xx = "+results[:fours].to_s+", 5xx = "+results[:fives].to_s+", Hits = "+results[:hits]
+    log.info "2xx = "+results[:twos].to_s+", 3xx = "+results[:threes].to_s+", 4xx = "+results[:fours].to_s+", 5xx = "+results[:fives].to_s+", Hits = "+results[:hits].to_s
     sleep(Time.now + 0.5 - start)
 end
